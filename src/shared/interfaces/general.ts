@@ -5,7 +5,7 @@ export type character = {
     class?: charClass[],
     race?: race,
     background?: string,
-    deathSaves: number[],
+    deathSaves: {success:boolean[], failures:boolean[]},
     attributes: attribute[],
     skill: skill[],
     exp: number,
@@ -14,6 +14,7 @@ export type character = {
     armorClass: number,
     initiative: number,
     inventory?: inventory,
+    speed: number,
 }
 
 export type race = {
@@ -57,6 +58,7 @@ export type attribute = {
 export type skill = {
     name: string,
     value: number,
+    proficiency: boolean,
 }
 
 export type weapon = {

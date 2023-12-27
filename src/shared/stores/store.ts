@@ -6,7 +6,7 @@ let personaje: character = {
     armorClass: 0,
     attributes: [],
     background: undefined,
-    deathSaves: [],
+    deathSaves: {success:[false, false, false], failures: [false, false, false]},
     exp: 0,
     hitPoints: 0,
     lvl: 0,
@@ -15,8 +15,9 @@ let personaje: character = {
     class: undefined,
     inventory: undefined,
     race: undefined,
-    skill: [{ name: "", value: 0 }],
-    initiative: 0
+    skill: [{ name: "", value: 0, proficiency: false }],
+    initiative: 0,
+    speed: 0,
 };
 
 export const personajePrueba = writable(personaje);

@@ -1,5 +1,7 @@
 <script>
-	import CharacterSheet from "./characterSheet.svelte";
-
+	import CharacterSheet from './characterSheet.svelte';
 </script>
-<CharacterSheet></CharacterSheet>
+
+<div class="bg-character-sheet">
+	<CharacterSheet />
+</div>
