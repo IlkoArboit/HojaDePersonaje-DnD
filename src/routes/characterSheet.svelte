@@ -7,7 +7,12 @@
 		{
 			name: 'Strength',
 			value: 10,
-			modifier: getModifier(10)
+			modifier: getModifier(10),
+			skills: [{
+				name:"Athletism",
+				value: getModifier(10),
+				proficiency: false,
+			},]
 		},
 		{
 			name: 'Dexterity',
@@ -38,7 +43,7 @@
 
 	$: {
 		$personajePrueba.attributes = exampAttributes;
-		$personajePrueba.skill = getSkillValues(exampAttributes);
+		
 	}
 
 	function getModifier(attValue: number) {
@@ -71,7 +76,7 @@
 				type="text"
 				name="class-input"
 				id="class-input"
-				bind:value={$personajePrueba.class}
+				bind:value={$personajePrueba.charClass.name}
 				placeholder="Character class"
 			/>
 			<input
@@ -80,7 +85,7 @@
 				type="text"
 				name="race-input"
 				id="race-input"
-				bind:value={$personajePrueba.race}
+				bind:value={$personajePrueba.race.name}
 				placeholder="Character race"
 			/>
 			<input
@@ -107,7 +112,7 @@
 			</div>
 			<div>
 				<p>Max HP</p>
-				<span><!-- {$personajePrueba.class[0].hitDie * $personajePrueba.class[0].lvl} -->50</span>
+				<span>{$personajePrueba.charClass.initialHp}</span>
 			</div>
 		</div>
 		<div
@@ -191,34 +196,49 @@
 	</div>
 
 	<div
-		class="grid grid-rows-6 grid-cols-1 rounded-3xl justify-items-center gap-y-1 col-span-2 row-span-4 col-start-1 row-start-2 bg-surface-500"
+		class="flex flex-col place-content-evenly rounded-3xl col-span-3 row-span-4 col-start-1 row-start-2 bg-surface-500"
 	>
-		{#each $personajePrueba.attributes as attribute}
-			<div class="card w-2/3 flex flex-col align-middle text-center variant-filled-secondary">
-				<span class="variant-filled-primary rounded-t-xl"
-					>{attribute.name.substring(0, 3).toUpperCase()}</span
-				>
-				<span class="text-2xl w-2/5 self-center hover:variant-ghost-tertiary rounded-full"
-					>{attribute.value}</span
-				>
-				<span class="w-1/5 self-center hover:variant-ghost-tertiary rounded-full"
-					>{attribute.modifier}</span
-				>
+		{#each $personajePrueba.attributes as attribute, i}
+			<div class="w-full flex justify-evenly items-center">
+				<div class="card w-1/3 flex flex-col text-center variant-filled-secondary">
+					<span class="variant-filled-primary rounded-t-xl"
+						>{attribute.name.substring(0, 3).toUpperCase()}</span
+					>
+					<span class="text-2xl w-2/5 self-center hover:variant-ghost-tertiary rounded-full"
+						>{#if attribute.modifier > 0}
+							+
+						{/if}{attribute.modifier}</span
+					>
+					<span class="w-1/5 self-center hover:variant-ghost-tertiary rounded-full"
+						>{attribute.value}</span
+					>
+				</div>
+				<div class="flex">
+					{#if attribute.skills}
+						{#each attribute.skills as skill}
+							<p>{skill.name}</p>
+							<p>{skill.value}</p>
+						{/each}
+					{/if}
+				</div>
 			</div>
 		{/each}
 	</div>
 
-	<div
-		class="col-span-3 col-start-3 row-span-2 row-start-2 rounded-lg grid grid-cols-3 grid-rows-6 gap-[2px]"
-	>
-		{#each $personajePrueba.skill as skill, i}
-			<div class="col-start-{(i + 1) % 3} flex flex-col w-full rounded-lg">
-				<p class="h-1/2 text-center rounded-t-lg variant-soft-primary">{skill.name}</p>
-				<button
-					class="h-1/2 align-middle variant-ghost-tertiary hover:variant-ringed-secondary rounded-b-lg"
-					>{skill.value}</button
+	<div class="variant-ringed-tertiary h-min flex flex-col row-start-5 col-span-2">
+		<div class="flex justify-around">
+			<p>Passive Perception</p>
+			<span class="variant-outline-primary rounded-full px-2"
+				>{10 + $personajePrueba.attributes[4].modifier}</span
+			>
+		</div>
+		<div class="variant-ringed-tertiary row-start-5 col-span-2">
+			<div class="flex justify-around">
+				<p>Profieciency Bonus</p>
+				<span class="variant-outline-primary rounded-full px-2"
+					>+{$personajePrueba.charClass.profBonus}</span
 				>
 			</div>
-		{/each}
+		</div>
 	</div>
 </div>
