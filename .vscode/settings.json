@@ -1,7 +1,10 @@
 {
-	"prettier.documentSelectors": [
-		"**/*.svelte"
-	],
+	"editor.formatOnSave": true,
+	"[typescript, svelte]": {
+		"editor.formatOnSave": false
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"prettier.documentSelectors": ["**/*.svelte"],
 	"tailwindCSS.classAttributes": [
 		"class",
 		"accent",
