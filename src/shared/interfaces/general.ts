@@ -11,7 +11,7 @@ export interface character {
 	maxHitPoints: number;
 	armorClass: number;
 	initiative: number;
-	inventory?: inventory;
+	inventory: inventory;
 	speed: number;
 }
 
@@ -76,6 +76,7 @@ export interface attribute {
 	name: string;
 	value: number;
 	modifier: number;
+	savingThrow: boolean;
     skills?: skill[];
 }
 
@@ -98,6 +99,7 @@ export interface weapon {
 		name: string;
 		desciption: string;
 	};
+	range: string;
 	description: string;
 }
 

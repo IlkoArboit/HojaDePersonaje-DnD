@@ -1,58 +1,25 @@
 <script lang="ts">
-	import { getSkillValues } from '../shared/helpers/helpers';
+	import InventoryGearTable from './Components/inventoryGearTable.svelte';
+	import InventoryArmorTable from './Components/inventoryArmorTable.svelte';
+	import { getModifier } from '../shared/helpers/helpers';
 	import type { attribute } from '../shared/interfaces/general';
 	import { personajePrueba } from './../shared/stores/store';
+	import { TabGroup, Tab, TabAnchor } from '@skeletonlabs/skeleton';
+	import InverntoryWeaponTable from './Components/inverntoryWeaponTable.svelte';
 
-	let exampAttributes: attribute[] = [
-		{
-			name: 'Strength',
-			value: 10,
-			modifier: getModifier(10),
-			skills: [{
-				name:"Athletism",
-				value: getModifier(10),
-				proficiency: false,
-			},]
-		},
-		{
-			name: 'Dexterity',
-			value: 13,
-			modifier: getModifier(13)
-		},
-		{
-			name: 'Constitution',
-			value: 19,
-			modifier: getModifier(19)
-		},
-		{
-			name: 'Intelligence',
-			value: 8,
-			modifier: getModifier(8)
-		},
-		{
-			name: 'Wisdom',
-			value: 12,
-			modifier: getModifier(12)
-		},
-		{
-			name: 'Charisma',
-			value: 15,
-			modifier: getModifier(15)
-		}
-	];
-
-	$: {
-		$personajePrueba.attributes = exampAttributes;
-		
-	}
-
-	function getModifier(attValue: number) {
-		return Math.floor((attValue - 10) / 2);
-	}
+	let tabSet: number = 0;
 
 	function resetDeathSaves() {
 		$personajePrueba.deathSaves.failures = [false, false, false];
 		$personajePrueba.deathSaves.success = [false, false, false];
+	}
+
+	function getSavingThrow(att: attribute) {
+		if (att.savingThrow) {
+			return att.modifier + $personajePrueba.charClass.profBonus;
+		} else {
+			return att.modifier;
+		}
 	}
 </script>
 
@@ -196,11 +163,13 @@
 	</div>
 
 	<div
-		class="flex flex-col place-content-evenly rounded-3xl col-span-3 row-span-4 col-start-1 row-start-2 bg-surface-500"
+		class="flex flex-col place-content-evenly rounded-3xl col-span-3 row-span-4 col-start-1 row-start-2 bg-surface-500 border-r border-r-primary-500"
 	>
 		{#each $personajePrueba.attributes as attribute, i}
-			<div class="w-full flex justify-evenly items-center">
-				<div class="card w-1/3 flex flex-col text-center variant-filled-secondary">
+			<div class="w-full flex justify-between">
+				<div
+					class="card w-1/4 flex flex-col text-center variant-filled-secondary place-self-center m-auto"
+				>
 					<span class="variant-filled-primary rounded-t-xl"
 						>{attribute.name.substring(0, 3).toUpperCase()}</span
 					>
@@ -213,19 +182,32 @@
 						>{attribute.value}</span
 					>
 				</div>
-				<div class="flex">
+				<div
+					class="flex flex-col flex-wrap w-1/2 align-text-bottom justify-center border-l border-l-primary-500"
+				>
 					{#if attribute.skills}
 						{#each attribute.skills as skill}
-							<p>{skill.name}</p>
-							<p>{skill.value}</p>
+							<!-- svelte-ignore a11y-click-events-have-key-events -->
+							<!-- svelte-ignore a11y-no-static-element-interactions -->
+							<div
+								on:click={() => alert(`Rolled ${skill.name}`)}
+								class="text-xs grid grid-cols-3 border-b border-b-primary-500 cursor-pointer hover:variant-ghost-tertiary"
+							>
+								<span class="ml-1 col-span-2">{skill.name}</span>
+								<span class="place-self-center">{skill.value}</span>
+							</div>
 						{/each}
 					{/if}
+					<div class="text-xs grid grid-cols-3 cursor-pointer hover:variant-ghost-tertiary">
+						<span class="ml-1 col-span-2">Saving Throw</span>
+						<span class="place-self-center">{getSavingThrow(attribute)}</span>
+					</div>
 				</div>
 			</div>
 		{/each}
 	</div>
 
-	<div class="variant-ringed-tertiary h-min flex flex-col row-start-5 col-span-2">
+	<div class="variant-ringed-tertiary flex flex-col row-start-2 col-span-2 h-min">
 		<div class="flex justify-around">
 			<p>Passive Perception</p>
 			<span class="variant-outline-primary rounded-full px-2"
@@ -239,6 +221,29 @@
 					>+{$personajePrueba.charClass.profBonus}</span
 				>
 			</div>
+		</div>
+	</div>
+
+	<div class="row-start-3 col-span-6 row-span-3">
+		<h1 class="text-center text-4xl">Inventory</h1>
+		<div class="max-h-full overflow-y-scroll">
+			<!-- svelte-ignore empty-block -->
+			<TabGroup justify="justify-center">
+				<Tab bind:group={tabSet} name="Weapons Tab" value={0}>
+					<span>Weapons</span>
+				</Tab>
+				<Tab bind:group={tabSet} name="Armor Tab" value={1}>Armor</Tab>
+				<Tab bind:group={tabSet} name="Gear Tab" value={2}>Gear</Tab>
+				<svelte:fragment slot="panel">
+					{#if tabSet === 0}
+						<InverntoryWeaponTable />
+					{:else if tabSet === 1}
+						<InventoryArmorTable />
+					{:else if tabSet === 2}
+						<InventoryGearTable />
+					{/if}
+				</svelte:fragment>
+			</TabGroup>
 		</div>
 	</div>
 </div>
