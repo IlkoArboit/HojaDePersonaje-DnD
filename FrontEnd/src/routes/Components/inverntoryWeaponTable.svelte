@@ -5,16 +5,16 @@
 </script>
 
 <div class="table-container">
-    <table class="border-separate border-spacing-y-[2px] border-spacing-x-0 w-full">
+    <table class="table table-hover border-separate border-spacing-y-[2px] border-spacing-x-0 w-full">
         <thead>
             <tr>
-                <th class="px-1 variant-filled-primary rounded-tl-xl">Nombre</th>
-                <th class="px-1 variant-filled-primary">Dmg Dice</th>
-                <th class="px-1 variant-filled-primary">Dmg Type</th>
-                <th class="px-1 variant-filled-primary">Weapon type</th>
-                <th class="px-1 variant-filled-primary">Properties</th>
-                <th class="px-1 variant-filled-primary">Range</th>
-                <th class="px-1 variant-filled-primary rounded-tr-xl">Description</th>
+                <th class="px-1 variant-filled-primary text-center rounded-tl-xl">Nombre</th>
+                <th class="px-1 variant-filled-primary text-center">Dmg Dice</th>
+                <th class="px-1 variant-filled-primary text-center">Dmg Type</th>
+                <th class="px-1 variant-filled-primary text-center">Weapon type</th>
+                <th class="px-1 variant-filled-primary text-center">Properties</th>
+                <th class="px-1 variant-filled-primary text-center">Range</th>
+                <th class="px-1 variant-filled-primary text-center rounded-tr-xl">Description</th>
             </tr>
         </thead>
         <tbody>

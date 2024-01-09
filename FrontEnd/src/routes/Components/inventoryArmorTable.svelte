@@ -4,17 +4,17 @@
 
 </script>
 
-<div class="table-container">
-    <table class="border-separate border-spacing-y-[2px] border-spacing-x-0 w-full">
+<div class="table-container max-h-full overflow-y-scroll">
+    <table class="table table-hover border-separate border-spacing-y-[2px] border-spacing-x-0 w-full">
         <thead>
             <tr>
-                <th class="px-1 variant-filled-primary rounded-tl-xl">Nombre</th>
-                <th class="px-1 variant-filled-primary">Armor type</th>
-                <th class="px-1 variant-filled-primary">AC</th>
-                <th class="px-1 variant-filled-primary">Min STR</th>
-                <th class="px-1 variant-filled-primary">DEX Mod</th>
-                <th class="px-1 variant-filled-primary">Stealth DSVG</th>
-                <th class="px-1 variant-filled-primary rounded-tr-xl">Description</th>
+                <th class="px-1 variant-filled-primary text-center rounded-tl-xl">Nombre</th>
+                <th class="px-1 variant-filled-primary text-center">Armor type</th>
+                <th class="px-1 variant-filled-primary text-center">AC</th>
+                <th class="px-1 variant-filled-primary text-center">Min STR</th>
+                <th class="px-1 variant-filled-primary text-center">DEX Mod</th>
+                <th class="px-1 variant-filled-primary text-center">Stealth DSVG</th>
+                <th class="px-1 variant-filled-primary text-center rounded-tr-xl">Description</th>
             </tr>
         </thead>
         <tbody>

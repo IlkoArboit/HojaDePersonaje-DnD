@@ -191,6 +191,21 @@ let personaje: character = {
 	inventory: {
 		weapons: [
 			{
+				type: "Simple",
+				name: "Dagger",
+				cost: "2 gp",
+				damage: {
+					dice: [1, 4],
+					dmgType: "piercing",
+				},
+				weight: 1,
+				properties: {
+					name: "Finesse, Light, Thrown",
+					desciption: "Can be used with Dexterity for attack and damage, light and throwable.",
+				},
+				range: '5ft 30/60ft',
+				description: "A short, pointed blade suitable for stabbing.",
+			},{
 				type: 'Martial',
 				name: 'Longsword',
 				cost: '15 gp',
@@ -223,7 +238,7 @@ let personaje: character = {
 				description: 'A heavy crossbow with substantial piercing power.'
 			},
 			{
-				type: 'Melee',
+				type: 'Martial',
 				name: 'Warhammer',
 				range: '5ft',
 				cost: '15 gp',

@@ -224,9 +224,9 @@
 		</div>
 	</div>
 
-	<div class="row-start-3 col-span-6 row-span-3">
+	<div class="row-start-3 col-span-5 row-span-3">
 		<h1 class="text-center text-4xl">Inventory</h1>
-		<div class="max-h-full overflow-y-scroll">
+		<div class="max-h-[90%] overflow-y-auto">
 			<!-- svelte-ignore empty-block -->
 			<TabGroup justify="justify-center">
 				<Tab bind:group={tabSet} name="Weapons Tab" value={0}>
@@ -244,6 +244,34 @@
 					{/if}
 				</svelte:fragment>
 			</TabGroup>
+		</div>
+	</div>
+
+	<div class="variant-outline-primary col-span-4 row-span-2">
+		<p class="text-center text-3xl">Atacks and Spells</p>
+		<div>
+			<!-- Responsive Container (recommended) -->
+			<div class="table-container">
+				<!-- Native Table Element -->
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="text-center">Weapon</th>
+							<th class="text-center">Attack DMG</th>
+							<th class="text-center">DMG type</th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each $personajePrueba.inventory.weapons as weapon, i}
+							<tr>
+								<td class="text-center">{weapon.name}</td>
+								<td class="text-center">{weapon.damage.dice[0]+'d'+weapon.damage.dice[1]}{($personajePrueba.charClass.weaponPoff.includes(weapon.name) || $personajePrueba.charClass.weaponPoff.includes(weapon.type))? ('+'+$personajePrueba.charClass.profBonus) : ''}</td>
+								<td class="text-center capitalize">{weapon.damage.dmgType}</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>
