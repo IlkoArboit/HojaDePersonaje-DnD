@@ -28,10 +28,4 @@ public class DatabaseConfig {
         dataSource.setPassword(dbConnection.getDataSourcePassword());
         return dataSource;
     }
-
-    // Aquí puedes crear métodos para ejecutar consultas usando jdbcTemplate
-    // Por ejemplo:
-    // public List<Map<String, Object>> executeQuery(String sql) {
-    //     return jdbcTemplate.queryForList(sql);
-    // }
 }
